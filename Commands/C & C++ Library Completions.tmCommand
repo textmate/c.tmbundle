@@ -11,24 +11,30 @@
 require ENV['TM_SUPPORT_PATH'] + "/lib/exit_codes"
 require "#{ENV['TM_SUPPORT_PATH']}/lib/escape"
 
-line = STDIN.read
+line = ENV['TM_CURRENT_LINE']
 
 def candidates_or_exit(methodSearch="")
-  candidates = []  
+  candidates = []
   ["CLib.txt.gz","C++Lib.txt.gz"].each do |name|
-    zGrepped = %x{ zgrep ^#{e_sh methodSearch } #{e_sh ENV['TM_BUNDLE_SUPPORT']}/#{name} }
-    candidates += zGrepped.split("\n")
+  zGrepped = %x{ zgrep ^#{e_sh methodSearch } #{e_sh ENV['TM_BUNDLE_SUPPORT']}/#{name} }
+  candidates += zGrepped.split("\n")
   end
   TextMate.exit_show_tool_tip "No completion available" if candidates.empty?
   return candidates
 end
 
 def prettify(candidate)
-  candidate.gsub(/\$\{\d+:|\}|\$0/,"")  
+  ca = candidate.split("\t")
+  ca[0]+ca[1]
 end
 
-def snippet_generator(cand, start)
-  cand[start..-1]  
+def snippet_generator(cand, s)
+  	c = cand.split"\t"
+  i = 0
+  middle = c[1][1..-2].split(",").collect do |arg|
+	 "${"+(i+=1).to_s+":"+ arg.strip + "}" 
+	end.join(", ")
+  c[0][s..-1]+"("+middle+")$0"
 end
 
 def pop_up(candidates, searchTerm)
@@ -74,11 +80,15 @@ def pop_up(candidates, searchTerm)
   end
 end
 
-caret_placement =ENV['TM_LINE_INDEX'].to_i - 1
+if ENV['TM_INPUT_START_LINE_INDEX']
+  caret_placement =ENV['TM_INPUT_START_LINE_INDEX'].to_i -1
+else
+  caret_placement =ENV['TM_LINE_INDEX'].to_i - 1
+end
+
 backContext = line[1+caret_placement..-1].match /^[a-zA-Z0-9_]/
 
 if backContext
-  print line[0..caret_placement]+ "$0"+ line[caret_placement+1..-1]
   TextMate.exit_discard
 end
 
@@ -90,12 +100,12 @@ if k = line[0..caret_placement].match(alpha_and_caret)
 else
   res = ""
 end
-print line[0..caret_placement] + res + "$0"+ line[caret_placement+1..-1]
+print res
 </string>
 	<key>fallbackInput</key>
 	<string>line</string>
 	<key>input</key>
-	<string>selection</string>
+	<string>none</string>
 	<key>keyEquivalent</key>
 	<string>~</string>
 	<key>name</key>
@@ -103,7 +113,7 @@ print line[0..caret_placement] + res + "$0"+ line[caret_placement+1..-1]
 	<key>output</key>
 	<string>insertAsSnippet</string>
 	<key>scope</key>
-	<string>source.c++, source.objc++</string>
+	<string>source.c++</string>
 	<key>uuid</key>
 	<string>093DA4F2-D97F-4309-B869-6970C090A539</string>
 </dict>
