@@ -15,6 +15,8 @@
 			<string>indent:</string>
 		</dict>
 	</array>
+	<key>disabled</key>
+	<true/>
 	<key>keyEquivalent</key>
 	<string>;</string>
 	<key>name</key>
