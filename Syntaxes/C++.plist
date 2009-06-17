@@ -347,10 +347,18 @@
 							<string>entity.name.type.c++</string>
 						</dict>
 					</dict>
+					<key>captures</key>
+					<dict>
+						<key>1</key>
+						<dict>
+							<key>name</key>
+							<string>keyword.control.namespace.$2</string>
+						</dict>
+					</dict>
 					<key>end</key>
 					<string>(?&lt;=\})|(?=(;|,|\(|\)|&gt;|\[|\]|=))</string>
 					<key>name</key>
-					<string>meta.namespace-block.c++</string>
+					<string>meta.namespace-block${2:+.$2}.c++</string>
 					<key>patterns</key>
 					<array>
 						<dict>
