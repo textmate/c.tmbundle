@@ -12,7 +12,7 @@
 require ENV["TM_SUPPORT_PATH"] + "/lib/tm/executor"
 require ENV["TM_SUPPORT_PATH"] + "/lib/tm/save_current_document"
 
-mode = ENV["TM_SCOPE"].slice(/^source\.((?:obj)?c(\+\+)?)/, 1)
+mode = ENV["TM_SCOPE"].slice(/.*?\bsource\.((?:obj)?c(\+\+)?)/, 1)
 
 
 case mode
