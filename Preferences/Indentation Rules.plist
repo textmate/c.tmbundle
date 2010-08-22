@@ -19,6 +19,7 @@
 	    ^ .* \{ [^}"']* $
 	|   ^ \s* (public|private|protected): \s* $
 	|   ^ \s* @(public|private|protected) \s* $
+	|   ^ \s* \{ \} $
 	</string>
 		<key>indentNextLinePattern</key>
 		<string>(?x)^
