@@ -10,12 +10,12 @@ require "#{ENV['TM_SUPPORT_PATH']}/lib/escape"
 require "#{ENV['TM_SUPPORT_PATH']}/lib/exit_codes"
 
 prefix = STDIN.read.sub(/^&lt;(.*?)&gt;?$/, '\1')
-string = %x{ "$TM_BUNDLE_SUPPORT/bin/headers" -p#{e_sh prefix} }
+string = %x{ "$TM_BUNDLE_SUPPORT/bin/headers" -p #{e_sh prefix} }
 list   = string.split("\n")
 list   = list.map { |e| e_sn e[prefix.size..-1] }
 case list.size
   when 0 then TextMate.exit_show_tool_tip "No headers matching ‘#{prefix}’."
-  when 1 then print "&lt;#{e_sn prefix}#{list.first}&gt;"
+  when 1 then print "&lt;#{e_sn string}$0&gt;"
   else print "&lt;#{e_sn prefix}${1|#{list.join(',')}|}&gt;"
 end
 </string>
