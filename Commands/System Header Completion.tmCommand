@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>beforeRunningCommand</key>
+	<string>nop</string>
+	<key>command</key>
+	<string>#!/usr/bin/env ruby -wKU
+require "#{ENV['TM_SUPPORT_PATH']}/lib/escape"
+require "#{ENV['TM_SUPPORT_PATH']}/lib/exit_codes"
+
+prefix = STDIN.read.sub(/^&lt;(.*?)&gt;?$/, '\1')
+string = %x{ "$TM_BUNDLE_SUPPORT/bin/headers" -p#{e_sh prefix} }
+list   = string.split("\n")
+list   = list.map { |e| e_sn e[prefix.size..-1] }
+case list.size
+  when 0 then TextMate.exit_show_tool_tip "No headers matching ‘#{prefix}’."
+  when 1 then print "&lt;#{e_sn prefix}#{list.first}&gt;"
+  else print "&lt;#{e_sn prefix}${1|#{list.join(',')}|}&gt;"
+end
+</string>
+	<key>fallbackInput</key>
+	<string>scope</string>
+	<key>input</key>
+	<string>selection</string>
+	<key>keyEquivalent</key>
+	<string>~</string>
+	<key>name</key>
+	<string>System Header Completion</string>
+	<key>output</key>
+	<string>insertAsSnippet</string>
+	<key>scope</key>
+	<string>source.c++ string.quoted.other.lt-gt.include, source.objc++ string.quoted.other.lt-gt.include</string>
+	<key>uuid</key>
+	<string>73CB5A73-593F-489B-923F-4F703718283D</string>
+</dict>
+</plist>
