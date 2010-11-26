@@ -95,6 +95,7 @@ end
 dirs = user_search_path(:system) || compiler_search_path(:system)
 res = [ ]
 dirs.each do |dir|
+  next unless File.exists?(dir)
   Dir.chdir(dir) { res << expand_dirs(Dir[partial_word + "*"].sort) }
 end
 
