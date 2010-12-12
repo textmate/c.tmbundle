@@ -11,7 +11,7 @@ require "#{ENV['TM_SUPPORT_PATH']}/lib/exit_codes"
 
 prefix = STDIN.read.sub(/^&lt;(.*?)&gt;?$/, '\1')
 string = %x{ "$TM_BUNDLE_SUPPORT/bin/headers" -p #{e_sh prefix} }
-list   = string.split("\n")
+list   = string.split("\n").reject { |e| e == prefix }
 prefix = list.inject { |lhs, rhs| lhs = lhs.chop while lhs != rhs[0...lhs.length]; lhs }
 list   = list.map { |e| e_sn e[prefix.size..-1] }
 case list.size
