@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>content</key>
+	<string>
+	$0
+</string>
+	<key>hideFromUser</key>
+	<true/>
+	<key>keyEquivalent</key>
+	<string></string>
+	<key>name</key>
+	<string>Special: Return In Empty Braces</string>
+	<key>scope</key>
+	<string>meta.scope.between-brace-pair</string>
+	<key>uuid</key>
+	<string>DF5C9197-3800-4027-9929-734D22E6208B</string>
+</dict>
+</plist>

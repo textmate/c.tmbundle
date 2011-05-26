@@ -16,6 +16,29 @@
 	</string>
 	<key>foldingStopMarker</key>
 	<string>(?&lt;!\*)\*\*/|^\s*\}</string>
+	<key>injections</key>
+	<dict>
+		<key>.</key>
+		<dict>
+			<key>comment</key>
+			<string>Globally Match Empty Brace Pairs</string>
+			<key>patterns</key>
+			<array>
+				<dict>
+					<key>captures</key>
+					<dict>
+						<key>1</key>
+						<dict>
+							<key>name</key>
+							<string>meta.scope.between-brace-pair.c</string>
+						</dict>
+					</dict>
+					<key>match</key>
+					<string>\{(\})</string>
+				</dict>
+			</array>
+		</dict>
+	</dict>
 	<key>keyEquivalent</key>
 	<string>^~C</string>
 	<key>name</key>
@@ -456,17 +479,36 @@
 		</dict>
 		<key>block</key>
 		<dict>
-			<key>begin</key>
-			<string>\{</string>
-			<key>end</key>
-			<string>\}</string>
-			<key>name</key>
-			<string>meta.block.c</string>
 			<key>patterns</key>
 			<array>
 				<dict>
-					<key>include</key>
-					<string>#block_innards</string>
+					<key>captures</key>
+					<dict>
+						<key>1</key>
+						<dict>
+							<key>name</key>
+							<string>meta.scope.between-brace-pair.c</string>
+						</dict>
+					</dict>
+					<key>match</key>
+					<string>\{(\})</string>
+					<key>name</key>
+					<string>meta.block.c</string>
+				</dict>
+				<dict>
+					<key>begin</key>
+					<string>\{</string>
+					<key>end</key>
+					<string>\}</string>
+					<key>name</key>
+					<string>meta.block.c</string>
+					<key>patterns</key>
+					<array>
+						<dict>
+							<key>include</key>
+							<string>#block_innards</string>
+						</dict>
+					</array>
 				</dict>
 			</array>
 		</dict>
