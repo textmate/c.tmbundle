@@ -95,7 +95,7 @@ def find_recursively(header)
 end
 
 domain, file = header()
-abort if file.nil?
+exit if file.nil?
 
 dirs = user_search_path(domain) || compiler_search_path(domain)
 if path = find_in_dirs(file, dirs)
@@ -103,7 +103,7 @@ if path = find_in_dirs(file, dirs)
 elsif domain == :all &amp;&amp; path = find_recursively(file)
   TextMate.go_to :file =&gt; path
 else
-  abort "Unable to find ‘#{file}’\nLocations searched:\n" + dirs.map { |dir| "   #{dir}" }.join("\n")
+  abort "Unable to find ‘#{file}’.\n\nLocations searched:\n" + dirs.map { |dir| "   #{dir}" }.join("\n")
 end
 </string>
 	<key>input</key>
