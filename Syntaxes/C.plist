@@ -16,29 +16,6 @@
 	</string>
 	<key>foldingStopMarker</key>
 	<string>(?&lt;!\*)\*\*/|^\s*\}</string>
-	<key>injections</key>
-	<dict>
-		<key>.</key>
-		<dict>
-			<key>comment</key>
-			<string>Globally Match Empty Brace Pairs</string>
-			<key>patterns</key>
-			<array>
-				<dict>
-					<key>captures</key>
-					<dict>
-						<key>1</key>
-						<dict>
-							<key>name</key>
-							<string>meta.scope.between-brace-pair.c</string>
-						</dict>
-					</dict>
-					<key>match</key>
-					<string>\{(\})</string>
-				</dict>
-			</array>
-		</dict>
-	</dict>
 	<key>keyEquivalent</key>
 	<string>^~C</string>
 	<key>name</key>
@@ -211,7 +188,7 @@
 				<key>4</key>
 				<dict>
 					<key>name</key>
-					<string>punctuation.definition.parameters.c</string>
+					<string>punctuation.definition.parameters.begin.c</string>
 				</dict>
 				<key>5</key>
 				<dict>
@@ -226,7 +203,7 @@
 				<key>8</key>
 				<dict>
 					<key>name</key>
-					<string>punctuation.definition.parameters.c</string>
+					<string>punctuation.definition.parameters.end.c</string>
 				</dict>
 			</dict>
 			<key>end</key>
@@ -482,24 +459,26 @@
 			<key>patterns</key>
 			<array>
 				<dict>
-					<key>captures</key>
-					<dict>
-						<key>1</key>
-						<dict>
-							<key>name</key>
-							<string>meta.scope.between-brace-pair.c</string>
-						</dict>
-					</dict>
-					<key>match</key>
-					<string>\{(\})</string>
-					<key>name</key>
-					<string>meta.block.c</string>
-				</dict>
-				<dict>
 					<key>begin</key>
 					<string>\{</string>
+					<key>beginCaptures</key>
+					<dict>
+						<key>0</key>
+						<dict>
+							<key>name</key>
+							<string>punctuation.section.block.begin.c</string>
+						</dict>
+					</dict>
 					<key>end</key>
 					<string>\}</string>
+					<key>endCaptures</key>
+					<dict>
+						<key>0</key>
+						<dict>
+							<key>name</key>
+							<string>punctuation.section.block.end.c</string>
+						</dict>
+					</dict>
 					<key>name</key>
 					<string>meta.block.c</string>
 					<key>patterns</key>
@@ -633,16 +612,24 @@
 				<dict>
 					<key>begin</key>
 					<string>/\*</string>
-					<key>captures</key>
+					<key>beginCaptures</key>
 					<dict>
 						<key>0</key>
 						<dict>
 							<key>name</key>
-							<string>punctuation.definition.comment.c</string>
+							<string>punctuation.definition.comment.begin.c</string>
 						</dict>
 					</dict>
 					<key>end</key>
 					<string>\*/</string>
+					<key>endCaptures</key>
+					<dict>
+						<key>0</key>
+						<dict>
+							<key>name</key>
+							<string>punctuation.definition.comment.end.c</string>
+						</dict>
+					</dict>
 					<key>name</key>
 					<string>comment.block.c</string>
 				</dict>
