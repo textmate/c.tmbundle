@@ -449,10 +449,21 @@
 	<dict>
 		<key>access</key>
 		<dict>
+			<key>captures</key>
+			<dict>
+				<key>1</key>
+				<dict>
+					<key>name</key>
+					<string>punctuation.separator.variable-access.c</string>
+				</dict>
+				<key>2</key>
+				<dict>
+					<key>name</key>
+					<string>variable.other.dot-access.c</string>
+				</dict>
+			</dict>
 			<key>match</key>
-			<string>\.[a-zA-Z_][a-zA-Z_0-9]*\b(?!\s*\()</string>
-			<key>name</key>
-			<string>variable.other.dot-access.c</string>
+			<string>(\.)([a-zA-Z_][a-zA-Z_0-9]*)\b(?!\s*\()</string>
 		</dict>
 		<key>block</key>
 		<dict>
