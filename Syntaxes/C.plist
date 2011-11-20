@@ -499,32 +499,8 @@
 					<string>#libc</string>
 				</dict>
 				<dict>
-					<key>captures</key>
-					<dict>
-						<key>1</key>
-						<dict>
-							<key>name</key>
-							<string>punctuation.whitespace.function-call.leading.c</string>
-						</dict>
-						<key>2</key>
-						<dict>
-							<key>name</key>
-							<string>support.function.any-method.c</string>
-						</dict>
-						<key>3</key>
-						<dict>
-							<key>name</key>
-							<string>punctuation.definition.parameters.c</string>
-						</dict>
-					</dict>
-					<key>match</key>
-					<string>(?x) (?: (?= \s )  (?:(?&lt;=else|new|return) | (?&lt;!\w)) (\s+))?
-			(\b 
-				(?!(while|for|do|if|else|switch|catch|enumerate|return|r?iterate)\s*\()(?:(?!NS)[A-Za-z_][A-Za-z0-9_]*+\b | :: )++                  # actual name
-			)
-			 \s*(\()</string>
-					<key>name</key>
-					<string>meta.function-call.c</string>
+					<key>include</key>
+					<string>#c_function_call</string>
 				</dict>
 				<dict>
 					<key>captures</key>
@@ -564,6 +540,35 @@
 					<string>$base</string>
 				</dict>
 			</array>
+		</dict>
+		<key>c_function_call</key>
+		<dict>
+			<key>captures</key>
+			<dict>
+				<key>1</key>
+				<dict>
+					<key>name</key>
+					<string>punctuation.whitespace.function-call.leading.c</string>
+				</dict>
+				<key>2</key>
+				<dict>
+					<key>name</key>
+					<string>support.function.any-method.c</string>
+				</dict>
+				<key>3</key>
+				<dict>
+					<key>name</key>
+					<string>punctuation.definition.parameters.c</string>
+				</dict>
+			</dict>
+			<key>match</key>
+			<string>(?x) (?: (?= \s )  (?:(?&lt;=else|new|return) | (?&lt;!\w)) (\s+))?
+			(\b 
+				(?!(while|for|do|if|else|switch|catch|enumerate|return|r?iterate)\s*\()(?:(?!NS)[A-Za-z_][A-Za-z0-9_]*+\b | :: )++                  # actual name
+			)
+			 \s*(\()</string>
+			<key>name</key>
+			<string>meta.function-call.c</string>
 		</dict>
 		<key>comments</key>
 		<dict>
