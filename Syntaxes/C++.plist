@@ -413,7 +413,7 @@
 						</dict>
 					</dict>
 					<key>end</key>
-					<string>(?&lt;=\})|(?=(;|,|\(|\)|&gt;|\[|\]|=))</string>
+					<string>(?&lt;=\})|(?=(;|\(|\)|&gt;|\[|\]|=))</string>
 					<key>name</key>
 					<string>meta.class-struct-block.c++</string>
 					<key>patterns</key>
