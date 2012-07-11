@@ -9,30 +9,51 @@
 require "#{ENV['TM_SUPPORT_PATH']}/lib/escape"
 require "#{ENV['TM_SUPPORT_PATH']}/lib/exit_codes"
 
-prefix = STDIN.read.sub(/^&lt;(.*?)&gt;?$/, '\1')
-string = %x{ "$TM_BUNDLE_SUPPORT/bin/headers" -p #{e_sh prefix} }
-list   = string.split("\n").reject { |e| e == prefix }
-prefix = list.inject { |lhs, rhs| lhs = lhs.chop while lhs != rhs[0...lhs.length]; lhs }
-list   = list.map { |e| e_sn e[prefix.size..-1] }
+def parse(input)
+  return :system, $1 if input =~ /^&lt;(.*?)&gt;?$/
+  return :user, $1   if input =~ /^"(.*?)"?$/
+  abort "Malformed input: #{input}"
+end
+
+def wrap(header, domain)
+  return "&lt;#{header}&gt;"   if domain == :system
+  return "\"#{header}\"" if domain == :user
+  abort "Unknown domain: #{domain}"
+end
+
+domain, input = parse(STDIN.read)
+string        = %x{ "$TM_BUNDLE_SUPPORT/bin/headers" -p #{e_sh input} -d #{domain} -C "${TM_DIRECTORY}" }
+list          = string.split("\n").reject { |e| e == input }
+prefix        = list.inject { |lhs, rhs| lhs = lhs.chop while lhs != rhs[0...lhs.length]; lhs }
+list          = list.map { |e| e_sn e[prefix.size..-1] }
+
 case list.size
-  when 0 then TextMate.exit_show_tool_tip "No headers matching ‘#{prefix}’."
-  when 1 then print "&lt;#{e_sn string}$0&gt;"
-  else print "&lt;#{e_sn prefix}${1|#{list.join(',')}|}&gt;"
+  when 0 then TextMate.exit_show_tool_tip "No headers matching ‘#{input}’."
+  when 1 then print wrap("#{e_sn string}$0", domain)
+  else        print wrap("#{e_sn prefix}${1|#{list.join(',')}|}", domain)
 end
 </string>
 	<key>fallbackInput</key>
 	<string>scope</string>
 	<key>input</key>
 	<string>selection</string>
+	<key>inputFormat</key>
+	<string>text</string>
 	<key>keyEquivalent</key>
 	<string>~</string>
 	<key>name</key>
-	<string>System Header Completion</string>
-	<key>output</key>
-	<string>insertAsSnippet</string>
+	<string>Header Completion</string>
+	<key>outputCaret</key>
+	<string>afterOutput</string>
+	<key>outputFormat</key>
+	<string>snippet</string>
+	<key>outputLocation</key>
+	<string>replaceInput</string>
 	<key>scope</key>
-	<string>source.c++ string.quoted.other.lt-gt.include, source.objc++ string.quoted.other.lt-gt.include</string>
+	<string>meta.preprocessor.c.include string.quoted</string>
 	<key>uuid</key>
 	<string>73CB5A73-593F-489B-923F-4F703718283D</string>
+	<key>version</key>
+	<integer>2</integer>
 </dict>
 </plist>
