@@ -10,79 +10,28 @@
 require ENV['TM_SUPPORT_PATH'] + '/lib/textmate.rb'
 require ENV['TM_SUPPORT_PATH'] + '/lib/ui.rb'
 
-USR_HEAD  = Regexp.escape "#include \"...\" search starts here:\n"
-SYS_HEAD  = Regexp.escape "#include &lt;...&gt; search starts here:\n"
-FOOTER    = Regexp.escape 'End of search list.'
-
-COMPILER  = {
-  'source.c'      =&gt; 'gcc 2&gt;&amp;1 &gt;/dev/null -E -v -x c /dev/null',
-  'source.c++'    =&gt; 'g++ 2&gt;&amp;1 &gt;/dev/null -E -v -x c++ /dev/null',
-  'source.objc'   =&gt; 'gcc 2&gt;&amp;1 &gt;/dev/null -E -v -x objective-c /dev/null',
-  'source.objc++' =&gt; 'g++ 2&gt;&amp;1 &gt;/dev/null -E -v -x objective-c++ /dev/null',
-}
-
-def compiler_search_path(domain = :system)
-  scope        = 'source.c'
-  scope        = $&amp; if ENV['TM_SCOPE'] =~ /source.(obj)?c(\+\+)?/
-
-  res = IO.popen(COMPILER[scope]) { |io| io.read }
-  if res =~ /#{USR_HEAD}(.*)#{SYS_HEAD}(.*)#{FOOTER}/m
-    case domain
-      when :system  then $2
-      when :user    then $1 + " .\n"
-      when :all     then $1 + " .\n" + $2
-    end.scan(/ (\S*)(?: \(framework directory\)$)?/).flatten
-  else
-    abort "Failed to parse compiler output.\nCommand: " + COMPILER[scope]
-  end
-end
-
-def user_search_path(domain = :system)
-  usr = ENV['TM_USR_HEADER_PATH'].to_s
-  sys = ENV['TM_SYS_HEADER_PATH'].to_s
-
-  res = case domain
-    when :system  then sys
-    when :user    then usr
-    when :all     then "#{usr}:#{sys}"
-  end.split(':')
-  res.delete('')
-
-  res.empty? ? nil : res
-end
-
 def header
   if ENV.has_key? 'TM_SELECTED_TEXT'
     [:all, ENV['TM_SELECTED_TEXT']]
   elsif ENV['TM_CURRENT_LINE'] =~ /#\s*(?:include|import)\s*([&lt;"])(.*?)["&gt;]/;
     [$1 == '&lt;' ? :system : :user, $2]
   else
-    defaultText = %x{ __CF_USER_TEXT_ENCODING=$UID:0x8000100:0x8000100 /usr/bin/pbpaste -pboard find }
+    defaultText = %x{ /usr/bin/pbpaste -pboard find }
     header = TextMate::UI.request_string :title =&gt; "Quick Open", :default =&gt; defaultText, :prompt =&gt; "Which header file do you wish to open?"
     [:all, header]
   end
 end
 
-def find_in_dirs(file, dirs)
-  framework = file.sub(/(.*)\/(.*\.h)/, '\1.framework/Headers/\2')
-  base = ENV['TM_DIRECTORY'] || Dir.getwd
-  dirs.each do |dir|
-    dir = "#{base}/#{dir}" unless dir[0..0] == "/"
-    return "#{dir}/#{file}"       if File.exists? "#{dir}/#{file}"
-    return "#{dir}/#{framework}"  if File.exists? "#{dir}/#{framework}"
-  end
-  nil
-end
-
-def find_recursively(header)
-  hdr_match = /\b#{Regexp.escape(header.sub(/(\.h)?$/, '.h'))}$/i
-  matches   = Dir["/System/Library/Frameworks/*.framework/{Frameworks/*.framework/,}Headers/*.h"].find_all { |e| e =~ hdr_match }
-
-  if matches.size &gt; 1
-    menu = matches.map do |e|
+def select_header(headers)
+  if headers.size &gt; 1
+    menu = headers.map do |e|
       header_name = $&amp; if e =~ /[^\/]+$/
-      framework_suffix = e.scan(/\/([^\/]+?).framework/).flatten.join(' → ')
-      { 'path' =&gt; e, 'title' =&gt; "#{header_name} — #{framework_suffix}" }
+      if e =~ /\.framework/
+        suffix = e.scan(/\/([^\/]+?).framework/).flatten.join(' → ')
+      else
+        suffix = File.split(e).first
+      end
+      { 'path' =&gt; e, 'title' =&gt; "#{header_name} — #{suffix}" }
     end
     if res = TextMate::UI.menu(menu)
       res['path']
@@ -90,33 +39,40 @@ def find_recursively(header)
       nil
     end
   else
-    matches.first
+    headers.first
   end
 end
 
 domain, file = header()
 exit if file.nil?
 
-dirs = user_search_path(domain) || compiler_search_path(domain)
-if path = find_in_dirs(file, dirs)
-  TextMate.go_to :file =&gt; path
-elsif domain == :all &amp;&amp; path = find_recursively(file)
-  TextMate.go_to :file =&gt; path
-else
-  abort "Unable to find ‘#{file}’.\n\nLocations searched:\n" + dirs.map { |dir| "   #{dir}" }.join("\n")
+headers = %x{ "$TM_BUNDLE_SUPPORT/bin/headers" -s #{e_sh file} -d #{domain} -C "${TM_DIRECTORY}" }.split("\n")
+
+if header = select_header(headers)
+  TextMate.go_to :file =&gt; header
+elsif headers.empty?
+  abort "Unable to find ‘#{file}’."
 end
 </string>
 	<key>input</key>
 	<string>none</string>
+	<key>inputFormat</key>
+	<string>text</string>
 	<key>keyEquivalent</key>
 	<string>@D</string>
 	<key>name</key>
 	<string>Quick Open</string>
-	<key>output</key>
-	<string>showAsTooltip</string>
+	<key>outputCaret</key>
+	<string>afterOutput</string>
+	<key>outputFormat</key>
+	<string>text</string>
+	<key>outputLocation</key>
+	<string>toolTip</string>
 	<key>scope</key>
 	<string>source.c, source.objc, source.c++, source.objc++</string>
 	<key>uuid</key>
 	<string>FF0E22D6-7D78-11D9-B4DE-000A95A89C98</string>
+	<key>version</key>
+	<integer>2</integer>
 </dict>
 </plist>
