@@ -8,8 +8,17 @@
 # --help:
 #    show help
 #
+# -d/--domain [user|system|all]
+#    search either for user or system headers
+#
+# -s/--search «header»
+#    search for the given «header»
+#
 # -p/--prefix «string»
 #    only show headers with «string» as prefix
+#
+# -C/--basedir «dir»
+#    this is used when searching the user domain
 
 USR_HEAD  = Regexp.escape "#include \"...\" search starts here:\n"
 SYS_HEAD  = Regexp.escape "#include <...> search starts here:\n"
@@ -27,76 +36,116 @@ require 'rdoc/usage'
 require "pp"
 
 def compiler_search_path(domain = :system)
-  scope        = "source.c"
+  scope        = "source.objc++"
   scope        = $& if ENV["TM_SCOPE"] =~ /source.(obj)?c(\+\+)?/
 
   res = IO.popen(COMPILER[scope]) { |io| io.read }
   if res =~ /#{USR_HEAD}(.*)#{SYS_HEAD}(.*)#{FOOTER}/m
-    case domain
+    list = case domain
       when :system  then $2
-      when :user    then $1 + " .\n"
-      when :all     then $1 + " .\n" + $2
-    end.scan(/ (\S*)(?: \(framework directory\)$)?/).flatten
+      when :user    then $1
+      when :all     then $1 + $2
+    end
+
+    res = [ ]
+    list.grep(/^ (\S*)( \(framework directory\)$)?/) do
+      next unless File.exists? $1
+      res << { :path => $1, :framework => ($2 ? true : false) }
+    end
+    res
   else
     abort "Failed to parse compiler output.\nCommand: " + COMPILER[scope]
   end
 end
 
 def user_search_path(domain = :system)
-  usr = ENV["TM_USR_HEADER_PATH"].to_s
-  sys = ENV["TM_SYS_HEADER_PATH"].to_s
-
-  res = case domain
-    when :system  then sys
-    when :user    then usr
-    when :all     then "#{usr}:#{sys}"
-  end.split(":")
-  res.delete("")
-
-  res.empty? ? nil : res
+  headers = [ ]
+  headers << ENV["TM_USR_HEADER_PATH"].to_s.split(':') unless domain == :system
+  headers << ENV["TM_SYS_HEADER_PATH"].to_s.split(':') unless domain == :user
+  headers.flatten.reject { |path| path.empty? }.map { |path| { :path => path } }
 end
 
-def expand_dirs(entries)
-  entries.map do |entry|
-    if entry =~ /(.*)\.framework$/
-      if File.exists? "#$1.framework/Headers/#$1.h"
-        "#$1/#$1.h"
-      elsif File.exists? "#$1.framework/Headers"
-        Dir["#$1.framework/Headers/[A-Za-z]*.h"].sort.map do |e|
-          e.sub(/\.framework\/Headers\//, "/")
-        end
+def find_header(header, dirs)
+  res = [ ]
+  dirs.each do |dir|
+    Dir.chdir(dir[:path]) do
+      if !dir[:framework]
+        glob = "**/#{header}"
+      elsif header =~ /(.+)\/(.*)/
+        glob = "{*.framework/Frameworks/,}#$1.framework/Headers/#$2"
       else
-        [ ]
+        glob = "*.framework/{Frameworks/*.framework/,}Headers/**/#{header}"
       end
-    elsif File.directory? entry
-      Dir[entry + "/[A-Za-z]*.h"].sort
-    else
-      entry
+      res << Dir[glob].map { |path| "#{dir[:path]}/#{path}" }
     end
   end
+  res = res.flatten.sort.uniq
+  return find_header("#{header}.h", dirs) if res.empty? && header !~ /\.h$/
+  res
+end
+
+def find_header_with_prefix(prefix, dirs)
+  res = [ ]
+  dirs.each do |dir|
+    Dir.chdir(dir[:path]) do
+      if !dir[:framework]
+        Dir["#{prefix}*"].each do |path|
+          if File.directory?(path)
+            res << Dir["#{path}/[A-Za-z]*.h"]
+          elsif path != prefix && (path =~ /\.h$/ || path =~ /\/[^.]+$/)
+            res << path
+          end
+        end
+      else
+        paths = [ ]
+        if prefix =~ /(.+)\/(.*)/
+          paths << Dir["{,*.framework/Frameworks/}#$1.framework/Headers/#$2*"]
+        else
+          Dir["{,*.framework/Frameworks/}#{prefix}*.framework/Headers"].map do |path|
+            if path =~ /(?:.*\.framework\/Frameworks\/)?(.*)\.framework\/Headers/
+              if File.exists? "#{path}/#$1.h"
+                paths << [ "#$1/#$1.h" ]
+              else
+                paths << Dir["#{path}/[A-Za-z]*.h"]
+              end
+            end
+          end
+        end
+        res << paths.flatten.map { |path| path.sub(/(?:.*\.framework\/Frameworks\/)?(.*)\.framework\/Headers\//, '\1/') }
+      end
+    end
+  end
+  res.flatten.sort.uniq
 end
 
 opts = GetoptLong.new(
-  [ '--prefix', '-p', GetoptLong::REQUIRED_ARGUMENT ],
-  [ '--help',         GetoptLong::NO_ARGUMENT       ]
+  [ '--search',  '-s', GetoptLong::REQUIRED_ARGUMENT ],
+  [ '--prefix',  '-p', GetoptLong::REQUIRED_ARGUMENT ],
+  [ '--domain',  '-d', GetoptLong::REQUIRED_ARGUMENT ],
+  [ '--basedir', '-C', GetoptLong::REQUIRED_ARGUMENT ],
+  [ '--help',          GetoptLong::NO_ARGUMENT       ]
 )
 
-partial_word = ''
+full_search   = nil
+prefix_search = nil
+domain        = :system
+basedir       = nil
 
 opts.each do |opt, arg|
   case opt
-    when '--help'
-      RDoc::usage
-    when '--prefix'
-      partial_word = arg
+    when '--help'    then RDoc::usage
+    when '--search'  then full_search = arg
+    when '--prefix'  then prefix_search = arg
+    when '--domain'  then domain = arg.to_sym
+    when '--basedir' then basedir = arg
   end
 end
 
-dirs = user_search_path(:system) || compiler_search_path(:system)
-res = [ ]
-dirs.each do |dir|
-  next unless File.exists?(dir)
-  Dir.chdir(dir) { res << expand_dirs(Dir[partial_word + "*"].sort) }
-end
+dirs = [ user_search_path(domain), compiler_search_path(domain) ].flatten
+dirs << { :path => basedir } unless domain == :system || basedir.nil?
 
-STDOUT << res.flatten.sort.uniq.join("\n")
+if full_search
+  STDOUT << find_header(full_search, dirs).join("\n")
+elsif prefix_search
+  STDOUT << find_header_with_prefix(prefix_search, dirs).join("\n")
+end
