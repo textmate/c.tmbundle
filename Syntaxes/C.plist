@@ -18,7 +18,7 @@
 	<string>(?&lt;!\*)\*\*/|^\s*\}</string>
 	<key>injections</key>
 	<dict>
-		<key>source.c -comment</key>
+		<key>source.c -comment.block -meta.block.c -string</key>
 		<dict>
 			<key>begin</key>
 			<string>(?x)
@@ -466,7 +466,11 @@
 			<array>
 				<dict>
 					<key>include</key>
-					<string>#block_innards</string>
+					<string>#c_function_call</string>
+				</dict>
+				<dict>
+					<key>include</key>
+					<string>$base</string>
 				</dict>
 			</array>
 		</dict>
@@ -759,12 +763,14 @@
 				<key>-(meta.preprocessor.enable.c &gt; meta.preprocessor.else-branch.c) -(meta.preprocessor.disable.c &gt; meta.preprocessor.if-branch.c)</key>
 				<dict>
 					<key>include</key>
-					<string>#block</string>
+					<string>$base</string>
 				</dict>
 				<key>meta.preprocessor.enable.c &gt; meta.preprocessor.else-branch.c, meta.preprocessor.disable.c &gt; meta.preprocessor.if-branch.c</key>
 				<dict>
-					<key>match</key>
-					<string>.</string>
+					<key>begin</key>
+					<string>\G</string>
+					<key>end</key>
+					<string>(?=^\s*#\s*(endif|else)\b.*?(?:(?=(?://|/\*))|$))</string>
 					<key>name</key>
 					<string>comment.block.preprocessor.c</string>
 				</dict>
