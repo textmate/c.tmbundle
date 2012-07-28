@@ -68,6 +68,7 @@ end
 def find_header(header, dirs)
   res = [ ]
   dirs.each do |dir|
+    next unless File.directory?(dir[:path])
     Dir.chdir(dir[:path]) do
       if !dir[:framework]
         glob = "**/#{header}"
