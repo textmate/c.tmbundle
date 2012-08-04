@@ -22,6 +22,8 @@
 
 require 'getoptlong'
 require 'rdoc/usage'
+require 'pathname'
+require 'set'
 
 USR_HEAD  = Regexp.escape "#include \"...\" search starts here:\n"
 SYS_HEAD  = Regexp.escape "#include <...> search starts here:\n"
@@ -67,23 +69,49 @@ def user_search_path(domain = :system)
 end
 
 def find_header(header, dirs)
-  res = [ ]
   dirs.each do |dir|
-    next unless File.directory?(dir[:path])
-    Dir.chdir(dir[:path]) do
-      if !dir[:framework]
-        glob = "**/#{header}"
-      elsif header =~ /(.+)\/(.*)/
-        glob = "{*.framework/Frameworks/,}#$1.framework/Headers/#$2"
-      else
-        glob = "*.framework/{Frameworks/*.framework/,}Headers/**/#{header}"
+    if File.file?("#{dir[:path]}/#{header}")
+      return [ "#{dir[:path]}/#{header}" ]
+    elsif dir[:framework]
+      Dir.chdir(dir[:path]) do
+        glob = "{*.framework/Frameworks/,}*.framework/Headers/#{header}{,.h}"
+        glob = "{*.framework/Frameworks/,}#$1.framework/Headers/#$2" if header =~ /(.+)\/(.*)/
+        res = [ ]
+        Dir[glob].map do |path|
+          res << "#{dir[:path]}/#{path}"
+        end
+        return res.map { |path| Pathname.new(path).realpath }.sort.uniq unless res.empty?
       end
-      res << Dir[glob].map { |path| "#{dir[:path]}/#{path}" }
     end
   end
-  res = res.flatten.sort.uniq
-  return find_header("#{header}.h", dirs) if res.empty? && header !~ /\.h$/
-  res
+  [ ]
+end
+
+def find_header_recursive(header, dirs)
+  seen = Set.new
+  res = [ ]
+  while dir = dirs.shift
+    next unless File.directory?(dir[:path])
+    realpath = Pathname.new(dir[:path]).realpath
+    next if seen.include?(realpath)
+    seen << realpath
+    if dir[:framework]
+      Dir.chdir(realpath) do
+        dirs.concat(Dir['*.framework/{Frameworks/*.framework/,}Headers'].map { |path| { :path => "#{realpath}/#{path}" } })
+      end
+    else
+      Dir.entries(realpath).each do |path|
+        next if path =~ /^\./
+        full_path = "#{realpath}/#{path}"
+        if File.directory?(full_path)
+          dirs << { :path => full_path }
+        elsif path == header || path.sub(/\.[^.]+$/, '') == header
+          res << full_path
+        end
+      end
+    end
+  end
+  res.sort.uniq
 end
 
 def find_header_with_prefix(prefix, dirs)
@@ -93,8 +121,8 @@ def find_header_with_prefix(prefix, dirs)
       if !dir[:framework]
         Dir["#{prefix}*"].each do |path|
           if File.directory?(path)
-            res << Dir["#{path}/[A-Za-z]*.h"]
-          elsif path != prefix && (path =~ /\.h$/ || path =~ /\/[^.]+$/)
+            res << Dir["#{path}/[A-Za-z]*.h{,pp}"]
+          elsif path != prefix && (path =~ /\.h(pp)?$/ || path =~ /\/[^.]+$/)
             res << path
           end
         end
@@ -147,7 +175,9 @@ dirs = [ user_search_path(domain), compiler_search_path(domain) ].flatten
 dirs << { :path => basedir } unless domain == :system || basedir.nil?
 
 if full_search
-  STDOUT << find_header(full_search, dirs).join("\n")
+  res = find_header(full_search, dirs)
+  res = find_header_recursive(full_search, dirs) if res.empty?
+  STDOUT << res.join("\n")
 elsif prefix_search
   STDOUT << find_header_with_prefix(prefix_search, dirs).join("\n")
 end
