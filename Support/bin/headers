@@ -20,26 +20,27 @@
 # -C/--basedir «dir»
 #    this is used when searching the user domain
 
+require 'getoptlong'
+require 'rdoc/usage'
+
 USR_HEAD  = Regexp.escape "#include \"...\" search starts here:\n"
 SYS_HEAD  = Regexp.escape "#include <...> search starts here:\n"
 FOOTER    = Regexp.escape "End of search list."
 
-COMPILER  = {
-  "source.c"      => "gcc 2>&1 >/dev/null -E -v -x c /dev/null",
-  "source.c++"    => "g++ 2>&1 >/dev/null -E -v -x c++ /dev/null",
-  "source.objc"   => "gcc 2>&1 >/dev/null -E -v -x objective-c /dev/null",
-  "source.objc++" => "g++ 2>&1 >/dev/null -E -v -x objective-c++ /dev/null",
+CONFIG = {
+  'source.c'      => "#{ENV['TM_GCC'] || 'gcc'} 2>&1 >/dev/null -E -v -x c             #{ENV['TM_C_FLAGS']}      /dev/null",
+  'source.c++'    => "#{ENV['TM_GXX'] || 'g++'} 2>&1 >/dev/null -E -v -x c++           #{ENV['TM_CXX_FLAGS']}    /dev/null",
+  'source.objc'   => "#{ENV['TM_GCC'] || 'gcc'} 2>&1 >/dev/null -E -v -x objective-c   #{ENV['TM_OBJC_FLAGS']}   /dev/null",
+  'source.objc++' => "#{ENV['TM_GXX'] || 'g++'} 2>&1 >/dev/null -E -v -x objective-c++ #{ENV['TM_OBJCXX_FLAGS']} /dev/null",
 }
 
-require 'getoptlong'
-require 'rdoc/usage'
-require "pp"
+def compiler(scope = ENV['TM_SCOPE'])
+  return CONFIG[$&] if scope =~ /\bsource\.(obj)?c(\+\+)?/
+  return CONFIG['source.objc++']
+end
 
 def compiler_search_path(domain = :system)
-  scope        = "source.objc++"
-  scope        = $& if ENV["TM_SCOPE"] =~ /source.(obj)?c(\+\+)?/
-
-  res = IO.popen(COMPILER[scope]) { |io| io.read }
+  res = IO.popen(compiler) { |io| io.read }
   if res =~ /#{USR_HEAD}(.*)#{SYS_HEAD}(.*)#{FOOTER}/m
     list = case domain
       when :system  then $2
@@ -54,7 +55,7 @@ def compiler_search_path(domain = :system)
     end
     res
   else
-    abort "Failed to parse compiler output.\nCommand: " + COMPILER[scope]
+    abort "Failed to parse compiler output.\nCommand: " + compiler
   end
 end
 
