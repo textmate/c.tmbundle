@@ -743,8 +743,24 @@
 		<dict>
 			<key>begin</key>
 			<string>\(</string>
+			<key>beginCaptures</key>
+			<dict>
+				<key>0</key>
+				<dict>
+					<key>name</key>
+					<string>punctuation.section.parens.begin.c</string>
+				</dict>
+			</dict>
 			<key>end</key>
 			<string>\)</string>
+			<key>endCaptures</key>
+			<dict>
+				<key>0</key>
+				<dict>
+					<key>name</key>
+					<string>punctuation.section.parens.end.c</string>
+				</dict>
+			</dict>
 			<key>name</key>
 			<string>meta.parens.c</string>
 			<key>patterns</key>
