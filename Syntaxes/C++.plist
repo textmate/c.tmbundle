@@ -415,7 +415,7 @@
 				</dict>
 				<dict>
 					<key>begin</key>
-					<string>\b(class|struct)\b\s*([_A-Za-z][_A-Za-z0-9]*\b)?+</string>
+					<string>\b(class|struct)\b\s*([_A-Za-z][_A-Za-z0-9]*\b)?+(\s*:\s*(public|protected|private)\s*([_A-Za-z][_A-Za-z0-9]*\b)(\s*,\s*(public|protected|private)\s*([_A-Za-z][_A-Za-z0-9]*\b))*)?</string>
 					<key>beginCaptures</key>
 					<dict>
 						<key>1</key>
@@ -427,6 +427,26 @@
 						<dict>
 							<key>name</key>
 							<string>entity.name.type.c++</string>
+						</dict>
+						<key>4</key>
+						<dict>
+							<key>name</key>
+							<string>storage.type.modifier.c++</string>
+						</dict>
+						<key>5</key>
+						<dict>
+							<key>name</key>
+							<string>entity.name.type.inherited.c++</string>
+						</dict>
+						<key>7</key>
+						<dict>
+							<key>name</key>
+							<string>storage.type.modifier.c++</string>
+						</dict>
+						<key>8</key>
+						<dict>
+							<key>name</key>
+							<string>entity.name.type.inherited.c++</string>
 						</dict>
 					</dict>
 					<key>end</key>
