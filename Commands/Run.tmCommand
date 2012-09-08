@@ -28,15 +28,25 @@ TextMate::Executor.run([ cc, flags, ENV["TM_FILEPATH"] ], :version_args =&gt; ["
 </string>
 	<key>input</key>
 	<string>document</string>
+	<key>inputFormat</key>
+	<string>text</string>
 	<key>keyEquivalent</key>
 	<string>@r</string>
 	<key>name</key>
 	<string>Run</string>
-	<key>output</key>
-	<string>showAsHTML</string>
+	<key>outputCaret</key>
+	<string>afterOutput</string>
+	<key>outputFormat</key>
+	<string>html</string>
+	<key>outputLocation</key>
+	<string>newWindow</string>
 	<key>scope</key>
 	<string>source.c, source.c++, source.objc, source.objc++</string>
+	<key>semanticClass</key>
+	<string>action.run.c</string>
 	<key>uuid</key>
 	<string>E823A373-FFD6-42F1-998F-7571A3553847</string>
+	<key>version</key>
+	<integer>2</integer>
 </dict>
 </plist>
