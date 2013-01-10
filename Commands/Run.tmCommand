@@ -5,7 +5,7 @@
 	<key>autoScrollOutput</key>
 	<true/>
 	<key>beforeRunningCommand</key>
-	<string>nop</string>
+	<string>saveModifiedFiles</string>
 	<key>command</key>
 	<string>#!/usr/bin/env ruby
 
@@ -22,7 +22,7 @@ CONFIG = {
 cc, flags, ext = *CONFIG['source.objc++'] # default
 cc, flags, ext = *CONFIG[$&amp;] if ENV["TM_SCOPE"] =~ /\bsource\.(obj)?c(\+\+)?/
 
-TextMate.save_current_document(ext)
+TextMate.save_if_untitled(ext)
 TextMate::Executor.make_project_master_current_document
 TextMate::Executor.run([ cc, flags, ENV["TM_FILEPATH"] ], :version_args =&gt; ["--version"], :version_regex =&gt; /\A([^\n]*) \(GCC\).*/m)
 </string>
