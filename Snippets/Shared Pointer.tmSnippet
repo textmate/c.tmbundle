@@ -3,7 +3,7 @@
 <plist version="1.0">
 <dict>
 	<key>content</key>
-	<string>typedef std::tr1::shared_ptr&lt;${2:${1:my_type}_t}&gt; ${3:${2/_t$/_ptr/}};</string>
+	<string>typedef std::shared_ptr&lt;${2:${1:my_type}_t}&gt; ${3:${2/_t$/_ptr/}};</string>
 	<key>name</key>
 	<string>Shared Pointer</string>
 	<key>scope</key>
