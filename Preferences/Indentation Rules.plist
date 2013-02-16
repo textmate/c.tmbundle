@@ -10,7 +10,7 @@
 	<dict>
 		<key>decreaseIndentPattern</key>
 		<string>(?x)
-	    ^ (.*\*/)? \s* \} ( \) | [^}{"']* \{ | \s* while \s* \( .* )? [;\s]* (//.*|/\*.*\*/\s*)? $
+	    ^ \s* ( (?! \S.* /[*] ) .* [*]/ \s* )? \} ( \) | [^}{"']* \{ | \s* while \s* \( .* )? [;\s]* (//.*|/\*.*\*/\s*)? $
 	|   ^ \s* (public|private|protected): \s* $
 	|   ^ \s* @(public|private|protected) \s* $
 	</string>
