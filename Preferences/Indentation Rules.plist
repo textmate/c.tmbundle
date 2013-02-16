@@ -23,12 +23,12 @@
 	</string>
 		<key>indentNextLinePattern</key>
 		<string>(?x)^
-	    (?! .* [;:{}]                   # do not indent when line ends with ;, :, {, or }
+	    (?! .* [;:{},]                  # do not indent when line ends with ;, :, {, }, or comma
 	        \s* (//|/[*] .* [*]/ \s* $) #  …account for potential trailing comment
 	    |   @(public|private|protected) # do not indent after obj-c data access keywords
 	    )
-	    .* [^\s;:{}] \s* $              # indent next if this one isn’t
-	                                    #  terminated with ;, :, {, or }
+	    .* [^\s;:{},] \s* $             # indent next if this one isn’t
+	                                    #  terminated with ;, :, {, }, or comma
 	</string>
 		<key>unIndentedLinePattern</key>
 		<string>^\s*((/\*|\*/|//|#|template\b.*?&gt;(?!\(.*\))|@protocol|@optional|@interface(?!.*\{)|@implementation|@end).*)?$</string>
