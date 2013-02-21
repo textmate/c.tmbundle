@@ -67,7 +67,7 @@
 		</dict>
 		<dict>
 			<key>match</key>
-			<string>\b(this)\b</string>
+			<string>\b(this|nullptr)\b</string>
 			<key>name</key>
 			<string>variable.language.c++</string>
 		</dict>
@@ -97,7 +97,7 @@
 		</dict>
 		<dict>
 			<key>match</key>
-			<string>\b(export|mutable|typename)\b</string>
+			<string>\b(constexpr|export|mutable|typename)\b</string>
 			<key>name</key>
 			<string>storage.modifier.c++</string>
 		</dict>
