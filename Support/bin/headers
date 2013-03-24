@@ -30,10 +30,10 @@ SYS_HEAD  = Regexp.escape "#include <...> search starts here:\n"
 FOOTER    = Regexp.escape "End of search list."
 
 CONFIG = {
-  'source.c'      => "#{ENV['TM_GCC'] || 'gcc'} 2>&1 >/dev/null -E -v -x c             #{ENV['TM_C_FLAGS']}      /dev/null",
-  'source.c++'    => "#{ENV['TM_GXX'] || 'g++'} 2>&1 >/dev/null -E -v -x c++           #{ENV['TM_CXX_FLAGS']}    /dev/null",
-  'source.objc'   => "#{ENV['TM_GCC'] || 'gcc'} 2>&1 >/dev/null -E -v -x objective-c   #{ENV['TM_OBJC_FLAGS']}   /dev/null",
-  'source.objc++' => "#{ENV['TM_GXX'] || 'g++'} 2>&1 >/dev/null -E -v -x objective-c++ #{ENV['TM_OBJCXX_FLAGS']} /dev/null",
+  'source.c'      => "#{ENV['TM_GCC'] || 'xcrun clang'}   2>&1 >/dev/null -E -v -x c             #{ENV['TM_C_FLAGS']}      /dev/null",
+  'source.c++'    => "#{ENV['TM_GXX'] || 'xcrun clang++'} 2>&1 >/dev/null -E -v -x c++           #{ENV['TM_CXX_FLAGS']}    /dev/null",
+  'source.objc'   => "#{ENV['TM_GCC'] || 'xcrun clang'}   2>&1 >/dev/null -E -v -x objective-c   #{ENV['TM_OBJC_FLAGS']}   /dev/null",
+  'source.objc++' => "#{ENV['TM_GXX'] || 'xcrun clang++'} 2>&1 >/dev/null -E -v -x objective-c++ #{ENV['TM_OBJCXX_FLAGS']} /dev/null",
 }
 
 def compiler(scope = ENV['TM_SCOPE'])

@@ -1,7 +1,10 @@
 #!/bin/bash
 
-eval '"$1"' "$2" '"$3"' -o '"$3".out'
+A_OUT=$(mktemp -t "${TM_DISPLAYNAME:-untitled}")
+trap 'rm "$A_OUT"' EXIT
+
+"$@" -o "$A_OUT"
 
 if [ $? -eq 0 ]; then
-  "$3".out;
+  "$A_OUT"
 fi

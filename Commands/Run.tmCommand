@@ -11,12 +11,13 @@
 
 require "#{ENV['TM_SUPPORT_PATH']}/lib/tm/executor"
 require "#{ENV['TM_SUPPORT_PATH']}/lib/tm/save_current_document"
+require "shellwords"
 
 CONFIG = {
-  'source.c'      =&gt; [ ENV['TM_GCC'] || 'gcc', "-x c             #{ENV['TM_C_FLAGS']      || '-Wall -include stdio.h'}",                                    'c'  ],
-  'source.c++'    =&gt; [ ENV['TM_GXX'] || 'g++', "-x c++           #{ENV['TM_CXX_FLAGS']    || '-Wall -include stdio.h -include iostream'}",                  'cc' ],
-  'source.objc'   =&gt; [ ENV['TM_GCC'] || 'gcc', "-x objective-c   #{ENV['TM_OBJC_FLAGS']   || '-Wall -include stdio.h -framework Cocoa'}",                   'm'  ],
-  'source.objc++' =&gt; [ ENV['TM_GXX'] || 'g++', "-x objective-c++ #{ENV['TM_OBJCXX_FLAGS'] || '-Wall -include stdio.h -include iostream -framework Cocoa'}", 'mm' ],
+  'source.c'      =&gt; [ ENV['TM_GCC'] || 'xcrun clang',   "-x c             #{ENV['TM_C_FLAGS']      || '-Wall -include stdio.h'}",                                    'c'  ],
+  'source.c++'    =&gt; [ ENV['TM_GXX'] || 'xcrun clang++', "-x c++           #{ENV['TM_CXX_FLAGS']    || '-Wall -include stdio.h -include iostream'}",                  'cc' ],
+  'source.objc'   =&gt; [ ENV['TM_GCC'] || 'xcrun clang',   "-x objective-c   #{ENV['TM_OBJC_FLAGS']   || '-Wall -include stdio.h -framework Cocoa'}",                   'm'  ],
+  'source.objc++' =&gt; [ ENV['TM_GXX'] || 'xcrun clang++', "-x objective-c++ #{ENV['TM_OBJCXX_FLAGS'] || '-Wall -include stdio.h -include iostream -framework Cocoa'}", 'mm' ],
 }
 
 cc, flags, ext = *CONFIG['source.objc++'] # default
@@ -24,7 +25,8 @@ cc, flags, ext = *CONFIG[$&amp;] if ENV["TM_SCOPE"] =~ /\bsource\.(obj)?c(\+\+)?
 
 TextMate.save_if_untitled(ext)
 TextMate::Executor.make_project_master_current_document
-TextMate::Executor.run([ cc, flags, ENV["TM_FILEPATH"] ], :version_args =&gt; ["--version"], :version_regex =&gt; /\A([^\n]*) \(GCC\).*/m)
+args = Shellwords.split(cc) &lt;&lt; Shellwords.split(flags) &lt;&lt; ENV["TM_FILEPATH"]
+TextMate::Executor.run(args, :version_args =&gt; ["--version"], :version_regex =&gt; /\A([^\n]*) \(GCC\).*/m)
 </string>
 	<key>input</key>
 	<string>document</string>
