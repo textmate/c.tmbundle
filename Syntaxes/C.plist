@@ -375,6 +375,14 @@
 			<string>support.type.mac-classic.c</string>
 		</dict>
 		<dict>
+			<key>comment</key>
+			<string>Reserved POSIX types</string>
+			<key>match</key>
+			<string>\b([a-z0-9_]+_t)\b</string>
+			<key>name</key>
+			<string>support.type.posix-reserved.c</string>
+    </dict>
+    <dict>
 			<key>include</key>
 			<string>#block</string>
 		</dict>
