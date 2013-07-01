@@ -376,11 +376,11 @@
 		</dict>
 		<dict>
 			<key>comment</key>
-			<string>common C type naming idiom -- custom_type_t</string>
-      <key>match</key>
-      <string>\b([a-z0-9_]+_t)\b</string>
-      <key>name</key>
-      <string>support.type.custom.c</string>
+			<string>Reserved POSIX types</string>
+			<key>match</key>
+			<string>\b([a-z0-9_]+_t)\b</string>
+			<key>name</key>
+			<string>support.type.posix-reserved.c</string>
     </dict>
     <dict>
 			<key>include</key>
