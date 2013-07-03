@@ -395,7 +395,7 @@
     		       | (?= \s*[A-Za-z_] ) (?&lt;!&amp;&amp;)       (?&lt;=[*&amp;&gt;])   #  or type modifier before name
     		     )
     		)
-    		(\s*) (?!(while|for|do|if|else|switch|catch|enumerate|return|[cr]?iterate)\s*\()
+    		(\s*) (?!(while|for|do|if|else|switch|catch|enumerate|return|sizeof|[cr]?iterate)\s*\()
     		(
     			(?: [A-Za-z_][A-Za-z0-9_]*+ | :: )++ |                  # actual name
     			(?: (?&lt;=operator) (?: [-*&amp;&lt;&gt;=+!]+ | \(\) | \[\] ) )  # if it is a C++ operator
@@ -597,7 +597,7 @@
 			<key>match</key>
 			<string>(?x) (?: (?= \s )  (?:(?&lt;=else|new|return) | (?&lt;!\w)) (\s+))?
 			(\b 
-				(?!(while|for|do|if|else|switch|catch|enumerate|return|[cr]?iterate)\s*\()(?:(?!NS)[A-Za-z_][A-Za-z0-9_]*+\b | :: )++                  # actual name
+				(?!(while|for|do|if|else|switch|catch|enumerate|return|sizeof|[cr]?iterate)\s*\()(?:(?!NS)[A-Za-z_][A-Za-z0-9_]*+\b | :: )++                  # actual name
 			)
 			 \s*(\()</string>
 			<key>name</key>
