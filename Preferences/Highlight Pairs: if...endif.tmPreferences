@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>name</key>
+	<string>Highlight Pairs: #if…#endif</string>
+	<key>scope</key>
+	<string>source.c, source.c++, source.objc, source.objc++</string>
+	<key>settings</key>
+	<dict>
+		<key>highlightPairs</key>
+		<array>
+			<array>
+				<string>(</string>
+				<string>)</string>
+			</array>
+			<array>
+				<string>[</string>
+				<string>]</string>
+			</array>
+			<array>
+				<string>{</string>
+				<string>}</string>
+			</array>
+			<array>
+				<string>“</string>
+				<string>”</string>
+			</array>
+			<array>
+				<string>‘</string>
+				<string>’</string>
+			</array>
+			<array>
+				<string>/^\s*#if\b/</string>
+				<string>/^\s*#(else|endif)\b/</string>
+			</array>
+			<array>
+				<string>/^\s*#(if|else)\b/</string>
+				<string>/^\s*#endif\b/</string>
+			</array>
+		</array>
+	</dict>
+	<key>uuid</key>
+	<string>EF911492-6DBB-413B-9801-D7150BF6BD6A</string>
+</dict>
+</plist>
