@@ -7,7 +7,7 @@
 	<key>bundleUUID</key>
 	<string>4675A940-6227-11D9-BFB1-000D93589AF6</string>
 	<key>command</key>
-	<string>#!/usr/bin/env ruby
+	<string>#!/System/Library/Frameworks/Ruby.framework/Versions/1.8/usr/bin/ruby
 line = STDIN.read
 $tab = (ENV['TM_SOFT_TABS'] == "NO" ? "\t" : " "*ENV['TM_TAB_SIZE'].to_i )
 def join_code s
