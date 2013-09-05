@@ -27,7 +27,7 @@ end
 	<key>output</key>
 	<string>afterSelectedText</string>
 	<key>scope</key>
-	<string>source.c++, source.objc++</string>
+	<string>dyn.caret.end &amp; (source.c++ | source.objc++)</string>
 	<key>tabTrigger</key>
 	<string>:</string>
 	<key>uuid</key>
