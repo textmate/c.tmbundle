@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>name</key>
+	<string>Typing Pairs: Integer Literals</string>
+	<key>scope</key>
+	<string>L:constant.numeric.c - dyn.selection</string>
+	<key>settings</key>
+	<dict>
+		<key>smartTypingPairs</key>
+		<array>
+			<array>
+				<string>"</string>
+				<string>"</string>
+			</array>
+			<array>
+				<string>(</string>
+				<string>)</string>
+			</array>
+			<array>
+				<string>{</string>
+				<string>}</string>
+			</array>
+			<array>
+				<string>[</string>
+				<string>]</string>
+			</array>
+			<array>
+				<string>“</string>
+				<string>”</string>
+			</array>
+			<array>
+				<string>‘</string>
+				<string>’</string>
+			</array>
+			<array>
+				<string>`</string>
+				<string>`</string>
+			</array>
+		</array>
+	</dict>
+	<key>uuid</key>
+	<string>8A8361BE-A002-4DA9-96B5-FEFA8DBC1648</string>
+</dict>
+</plist>
