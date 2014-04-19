@@ -3,13 +3,7 @@
 <plist version="1.0">
 <dict>
 	<key>content</key>
-	<string>#ifndef ${1:`#!/System/Library/Frameworks/Ruby.framework/Versions/1.8/usr/bin/ruby -wKU -riconv
-name = ENV["TM_FILENAME"] || "untitled"
-name = Iconv.iconv("ASCII//TRANSLIT", "UTF-8", name).first
-name = name.gsub(/[^a-z0-9]+/i, "_")
-uuid = (rand * 2821109907455).round.to_s(36)
-print "#{name}_#{uuid}".tr("[a-z]", "[A-Z]")
-`}
+	<string>#ifndef ${1:${TM_DISPLAYNAME/(\w+)(\W+$)?|\W+/${1:?${1:/asciify/upcase}:_}/g}_`uuidgen|cut -c-8`}
 #define $1
 
 ${TM_SELECTED_TEXT/\Z\n//}${0:}

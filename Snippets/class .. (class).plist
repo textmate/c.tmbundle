@@ -3,7 +3,7 @@
 <plist version="1.0">
 <dict>
 	<key>content</key>
-	<string>class ${1:${TM_FILENAME/(.+)\..+|.*/(?1:\L$1_t:name)/}}
+	<string>class ${1:${TM_DISPLAYNAME/(.+?)(\..+)?$/${1/(\w+)(\W+$)?|\W+/${1:?${1:/asciify/downcase}:_}/g}_t/}}
 {
 public:
 	${1/(\w+).*/$1/} (${2:arguments});
