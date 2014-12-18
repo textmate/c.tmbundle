@@ -6,7 +6,7 @@
 	<string>nop</string>
 	<key>command</key>
 	<string>#!/bin/bash
-if ! "${TM_CLANG_FORMAT}" -style="${TM_CLANG_FORMAT_STYLE-LLVM}" -assume-filename="${TM_FILEPATH}"; then
+if ! "${TM_CLANG_FORMAT}" -style="${TM_CLANG_FORMAT_STYLE:-LLVM}" -assume-filename="${TM_FILEPATH}"; then
 	. "$TM_SUPPORT_PATH/lib/bash_init.sh"
 	exit_show_tool_tip
 fi
