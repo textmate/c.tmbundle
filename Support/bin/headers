@@ -172,7 +172,7 @@ opts.each do |opt, arg|
 end
 
 dirs = [ user_search_path(domain), compiler_search_path(domain) ].flatten
-dirs << { :path => basedir } unless domain == :system || basedir.nil?
+dirs << { :path => basedir } unless domain == :system || basedir.to_s.empty?
 
 if full_search
   res = find_header(full_search, dirs)
