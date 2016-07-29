@@ -31,6 +31,10 @@
 		</dict>
 		<dict>
 			<key>include</key>
+			<string>#strings</string>
+		</dict>
+		<dict>
+			<key>include</key>
 			<string>source.c</string>
 		</dict>
 		<dict>
@@ -570,6 +574,97 @@
 							<string>$base</string>
 						</dict>
 					</array>
+				</dict>
+			</array>
+		</dict>
+		<key>strings</key>
+		<dict>
+			<key>patterns</key>
+			<array>
+				<dict>
+					<key>begin</key>
+					<string>(u|u8|U|L)?"</string>
+					<key>beginCaptures</key>
+					<dict>
+						<key>0</key>
+						<dict>
+							<key>name</key>
+							<string>punctuation.definition.string.begin.c++</string>
+						</dict>
+						<key>1</key>
+						<dict>
+							<key>name</key>
+							<string>meta.encoding.c++</string>
+						</dict>
+					</dict>
+					<key>end</key>
+					<string>"</string>
+					<key>endCaptures</key>
+					<dict>
+						<key>0</key>
+						<dict>
+							<key>name</key>
+							<string>punctuation.definition.string.end.c++</string>
+						</dict>
+					</dict>
+					<key>name</key>
+					<string>string.quoted.double.c++</string>
+					<key>patterns</key>
+					<array>
+						<dict>
+							<key>match</key>
+							<string>\\u\h{4}|\\U\h{8}</string>
+							<key>name</key>
+							<string>constant.character.escape.c++</string>
+						</dict>
+						<dict>
+							<key>match</key>
+							<string>\\['"?\\abfnrtv]</string>
+							<key>name</key>
+							<string>constant.character.escape.c++</string>
+						</dict>
+						<dict>
+							<key>match</key>
+							<string>\\[0-7]{1,3}</string>
+							<key>name</key>
+							<string>constant.character.escape.c++</string>
+						</dict>
+						<dict>
+							<key>match</key>
+							<string>\\x\h+</string>
+							<key>name</key>
+							<string>constant.character.escape.c++</string>
+						</dict>
+					</array>
+				</dict>
+				<dict>
+					<key>begin</key>
+					<string>(u|u8|U|L)?R"([^ ()\\\t]*)\(</string>
+					<key>beginCaptures</key>
+					<dict>
+						<key>0</key>
+						<dict>
+							<key>name</key>
+							<string>punctuation.definition.string.begin.c++</string>
+						</dict>
+						<key>1</key>
+						<dict>
+							<key>name</key>
+							<string>meta.encoding.c++</string>
+						</dict>
+					</dict>
+					<key>end</key>
+					<string>\)\2"</string>
+					<key>endCaptures</key>
+					<dict>
+						<key>0</key>
+						<dict>
+							<key>name</key>
+							<string>punctuation.definition.string.end.c++</string>
+						</dict>
+					</dict>
+					<key>name</key>
+					<string>string.quoted.double.raw.c++</string>
 				</dict>
 			</array>
 		</dict>
