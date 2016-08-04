@@ -639,7 +639,7 @@
 				</dict>
 				<dict>
 					<key>begin</key>
-					<string>(u|u8|U|L)?R"([^ ()\\\t]*)\(</string>
+					<string>(u|u8|U|L)?R"(?:([^ ()\\\t]{0,16})|([^ ()\\\t]*))\(</string>
 					<key>beginCaptures</key>
 					<dict>
 						<key>0</key>
@@ -652,15 +652,25 @@
 							<key>name</key>
 							<string>meta.encoding.c++</string>
 						</dict>
+						<key>3</key>
+						<dict>
+							<key>name</key>
+							<string>invalid.illegal.delimiter-too-long.c++</string>
+						</dict>
 					</dict>
 					<key>end</key>
-					<string>\)\2"</string>
+					<string>\)\2(\3)"</string>
 					<key>endCaptures</key>
 					<dict>
 						<key>0</key>
 						<dict>
 							<key>name</key>
 							<string>punctuation.definition.string.end.c++</string>
+						</dict>
+						<key>1</key>
+						<dict>
+							<key>name</key>
+							<string>invalid.illegal.delimiter-too-long.c++</string>
 						</dict>
 					</dict>
 					<key>name</key>
