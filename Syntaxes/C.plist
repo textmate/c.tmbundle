@@ -1172,12 +1172,6 @@
 					<key>name</key>
 					<string>constant.other.placeholder.c</string>
 				</dict>
-				<dict>
-					<key>match</key>
-					<string>%</string>
-					<key>name</key>
-					<string>invalid.illegal.placeholder.c</string>
-				</dict>
 			</array>
 		</dict>
 	</dict>
