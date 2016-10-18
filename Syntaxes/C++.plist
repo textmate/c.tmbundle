@@ -419,7 +419,7 @@
 				</dict>
 				<dict>
 					<key>begin</key>
-					<string>\b(class|struct)\b\s*([_A-Za-z][_A-Za-z0-9]*\b)?+(\s*:\s*(public|protected|private)\s*([_A-Za-z][_A-Za-z0-9]*\b)((\s*,\s*(public|protected|private)\s*[_A-Za-z][_A-Za-z0-9]*\b)*))?</string>
+					<string>\b(class|struct)\b\s*([_A-Za-z][_A-Za-z0-9]*\b)?+(\s*:\s*(public|protected|private)\b\s*([_A-Za-z][_A-Za-z0-9]*\b)((\s*,\s*(public|protected|private)\b\s*[_A-Za-z][_A-Za-z0-9]*\b)*))?</string>
 					<key>beginCaptures</key>
 					<dict>
 						<key>1</key>
@@ -448,7 +448,7 @@
 							<array>
 								<dict>
 									<key>match</key>
-									<string>(public|protected|private)</string>
+									<string>\b(public|protected|private)\b</string>
 									<key>name</key>
 									<string>storage.type.modifier.c++</string>
 								</dict>
