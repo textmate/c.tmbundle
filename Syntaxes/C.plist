@@ -33,7 +33,11 @@
 		</dict>
 		<dict>
 			<key>include</key>
-			<string>source.c.platform</string>
+			<string>source.c.library</string>
+		</dict>
+		<dict>
+			<key>include</key>
+			<string>source.c.posix</string>
 		</dict>
 		<dict>
 			<key>match</key>
@@ -526,7 +530,11 @@
 				</dict>
 				<dict>
 					<key>include</key>
-					<string>source.c.platform#functions</string>
+					<string>source.c.library#functions</string>
+				</dict>
+				<dict>
+					<key>include</key>
+					<string>source.c.posix#functions</string>
 				</dict>
 				<dict>
 					<key>include</key>
