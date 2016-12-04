@@ -1,4 +1,4 @@
-This file was generated with clang-C using MacOSX10.11.sdk
+This file was generated with clang-C using MacOSX10.12.sdk
 
 # Functions
 
@@ -25,6 +25,10 @@ This file was generated with clang-C using MacOSX10.11.sdk
 ## invalid.deprecated.10.11.support.function.quartz.c
 
 - `CGDisplayModeCopyPixelEncoding`
+
+## invalid.deprecated.10.12.support.function.clib.c
+
+- `syscall`
 
 ## invalid.deprecated.10.5.support.function.clib.c
 
@@ -147,6 +151,10 @@ This file was generated with clang-C using MacOSX10.11.sdk
 - `CGDisplayFadeOperationInProgress`
 - `CGDisplayIOServicePort`
 - `CGDisplayIsCaptured`
+
+## support.function.cf.10.12.c
+
+- `CFDateFormatterCreateISO8601Formatter`
 
 ## support.function.cf.10.8.c
 
@@ -966,6 +974,19 @@ This file was generated with clang-C using MacOSX10.11.sdk
 - `symlinkat`
 - `unlinkat`
 
+## support.function.clib.10.12.c
+
+- `clock_getres`
+- `clock_gettime`
+- `clock_gettime_nsec_np`
+- `clock_settime`
+- `mkostemp`
+- `mkostemps`
+- `mkpathat_np`
+- `renameatx_np`
+- `renamex_np`
+- `timingsafe_bcmp`
+
 ## support.function.clib.10.8.c
 
 - `fsync_volume_np`
@@ -1349,6 +1370,7 @@ This file was generated with clang-C using MacOSX10.11.sdk
 - `mkdtemp`
 - `mknod`
 - `mkstemp`
+- `mkstemp_dprotected_np`
 - `mkstemps`
 - `mktemp`
 - `mktime`
@@ -1582,7 +1604,6 @@ This file was generated with clang-C using MacOSX10.11.sdk
 - `swapon`
 - `symlink`
 - `sync`
-- `syscall`
 - `sysconf`
 - `system`
 - `tan`
@@ -1658,6 +1679,16 @@ This file was generated with clang-C using MacOSX10.11.sdk
 - `dispatch_block_wait`
 - `dispatch_queue_attr_make_with_qos_class`
 - `dispatch_queue_get_qos_class`
+
+## support.function.dispatch.10.12.c
+
+- `dispatch_activate`
+- `dispatch_assert_queue`
+- `dispatch_assert_queue_barrier`
+- `dispatch_assert_queue_not`
+- `dispatch_queue_attr_make_initially_inactive`
+- `dispatch_queue_attr_make_with_autorelease_frequency`
+- `dispatch_queue_create_with_target`
 
 ## support.function.dispatch.c
 
@@ -1868,7 +1899,16 @@ This file was generated with clang-C using MacOSX10.11.sdk
 
 - `CGColorCreateCopyByMatchingToColorSpace`
 - `CGEventPostToPid`
+- `CGEventTapCreateForPid`
 - `CGImageGetUTType`
+
+## support.function.quartz.10.12.c
+
+- `CGColorConversionInfoCreate`
+- `CGColorConversionInfoCreateFromList`
+- `CGColorSpaceCopyICCData`
+- `CGColorSpaceIsWideGamutRGB`
+- `CGColorSpaceSupportsOutput`
 
 ## support.function.quartz.10.8.c
 
@@ -1923,6 +1963,7 @@ This file was generated with clang-C using MacOSX10.11.sdk
 - `CGCancelDisplayConfiguration`
 - `CGCaptureAllDisplays`
 - `CGCaptureAllDisplaysWithOptions`
+- `CGColorConversionInfoGetTypeID`
 - `CGColorCreate`
 - `CGColorCreateCopy`
 - `CGColorCreateCopyWithAlpha`
@@ -2195,7 +2236,6 @@ This file was generated with clang-C using MacOSX10.11.sdk
 - `CGEventSourceSetUserData`
 - `CGEventTapCreate`
 - `CGEventTapCreateForPSN`
-- `CGEventTapCreateForPid`
 - `CGEventTapEnable`
 - `CGEventTapIsEnabled`
 - `CGEventTapPostEvent`
@@ -2486,6 +2526,12 @@ This file was generated with clang-C using MacOSX10.11.sdk
 - `CFGregorianDate`
 - `CFGregorianUnits`
 
+## invalid.deprecated.10.12.support.variable.cf.c
+
+- `kCFURLCustomIconKey`
+- `kCFURLEffectiveIconKey`
+- `kCFURLLabelColorKey`
+
 ## invalid.deprecated.10.8.support.variable.cf.c
 
 - `kCFURLUbiquitousItemPercentDownloadedKey`
@@ -2540,6 +2586,22 @@ This file was generated with clang-C using MacOSX10.11.sdk
 - `kCFNumberFormatterCurrencyISOCodeStyle`
 - `kCFNumberFormatterCurrencyPluralStyle`
 - `kCFNumberFormatterOrdinalStyle`
+
+## support.constant.cf.10.12.c
+
+- `kCFISO8601DateFormatWithColonSeparatorInTime`
+- `kCFISO8601DateFormatWithColonSeparatorInTimeZone`
+- `kCFISO8601DateFormatWithDashSeparatorInDate`
+- `kCFISO8601DateFormatWithDay`
+- `kCFISO8601DateFormatWithFullDate`
+- `kCFISO8601DateFormatWithFullTime`
+- `kCFISO8601DateFormatWithInternetDateTime`
+- `kCFISO8601DateFormatWithMonth`
+- `kCFISO8601DateFormatWithSpaceBetweenDateAndTime`
+- `kCFISO8601DateFormatWithTime`
+- `kCFISO8601DateFormatWithTimeZone`
+- `kCFISO8601DateFormatWithWeekOfYear`
+- `kCFISO8601DateFormatWithYear`
 
 ## support.constant.cf.10.8.c
 
@@ -2996,6 +3058,12 @@ This file was generated with clang-C using MacOSX10.11.sdk
 - `DISPATCH_BLOCK_INHERIT_QOS_CLASS`
 - `DISPATCH_BLOCK_NO_QOS_CLASS`
 
+## support.constant.dispatch.10.12.c
+
+- `DISPATCH_AUTORELEASE_FREQUENCY_INHERIT`
+- `DISPATCH_AUTORELEASE_FREQUENCY_NEVER`
+- `DISPATCH_AUTORELEASE_FREQUENCY_WORK_ITEM`
+
 ## support.constant.mac-classic.c
 
 - `alphaStage`
@@ -3020,6 +3088,14 @@ This file was generated with clang-C using MacOSX10.11.sdk
 - `OSBigEndian`
 - `OSLittleEndian`
 - `OSUnknownByteOrder`
+
+## support.constant.quartz.10.12.c
+
+- `kCGImageByteOrder16Big`
+- `kCGImageByteOrder16Little`
+- `kCGImageByteOrder32Big`
+- `kCGImageByteOrder32Little`
+- `kCGImageByteOrderMask`
 
 ## support.constant.quartz.c
 
@@ -3047,6 +3123,7 @@ This file was generated with clang-C using MacOSX10.11.sdk
 - `kCGBitmapByteOrderDefault`
 - `kCGBitmapByteOrderMask`
 - `kCGBitmapFloatComponents`
+- `kCGBitmapFloatInfoMask`
 - `kCGBlendModeClear`
 - `kCGBlendModeColor`
 - `kCGBlendModeColorBurn`
@@ -3077,6 +3154,9 @@ This file was generated with clang-C using MacOSX10.11.sdk
 - `kCGBlendModeXOR`
 - `kCGCaptureNoFill`
 - `kCGCaptureNoOptions`
+- `kCGColorConversionTransformApplySpace`
+- `kCGColorConversionTransformFromSpace`
+- `kCGColorConversionTransformToSpace`
 - `kCGColorSpaceModelCMYK`
 - `kCGColorSpaceModelDeviceN`
 - `kCGColorSpaceModelIndexed`
@@ -3382,6 +3462,7 @@ This file was generated with clang-C using MacOSX10.11.sdk
 - `CFBundleRef`
 - `CFBundleRefNum`
 - `CFByteOrder`
+- `CFCalendarIdentifier`
 - `CFCalendarRef`
 - `CFCalendarUnit`
 - `CFCharacterSetPredefinedSet`
@@ -3390,6 +3471,7 @@ This file was generated with clang-C using MacOSX10.11.sdk
 - `CFComparisonResult`
 - `CFDataRef`
 - `CFDataSearchFlags`
+- `CFDateFormatterKey`
 - `CFDateFormatterRef`
 - `CFDateFormatterStyle`
 - `CFDateRef`
@@ -3402,6 +3484,7 @@ This file was generated with clang-C using MacOSX10.11.sdk
 - `CFDictionaryReleaseCallBack`
 - `CFDictionaryRetainCallBack`
 - `CFDictionaryValueCallBacks`
+- `CFErrorDomain`
 - `CFErrorRef`
 - `CFFileDescriptorCallBack`
 - `CFFileDescriptorContext`
@@ -3411,7 +3494,10 @@ This file was generated with clang-C using MacOSX10.11.sdk
 - `CFFileSecurityRef`
 - `CFGregorianUnitFlags`
 - `CFHashCode`
+- `CFISO8601DateFormatOptions`
 - `CFIndex`
+- `CFLocaleIdentifier`
+- `CFLocaleKey`
 - `CFLocaleLanguageDirection`
 - `CFLocaleRef`
 - `CFMachPortCallBack`
@@ -3433,8 +3519,10 @@ This file was generated with clang-C using MacOSX10.11.sdk
 - `CFMutableStringRef`
 - `CFNotificationCallback`
 - `CFNotificationCenterRef`
+- `CFNotificationName`
 - `CFNotificationSuspensionBehavior`
 - `CFNullRef`
+- `CFNumberFormatterKey`
 - `CFNumberFormatterOptionFlags`
 - `CFNumberFormatterPadPosition`
 - `CFNumberFormatterRef`
@@ -3457,6 +3545,7 @@ This file was generated with clang-C using MacOSX10.11.sdk
 - `CFReadStreamClientCallBack`
 - `CFReadStreamRef`
 - `CFRunLoopActivity`
+- `CFRunLoopMode`
 - `CFRunLoopObserverCallBack`
 - `CFRunLoopObserverContext`
 - `CFRunLoopObserverRef`
@@ -3487,6 +3576,7 @@ This file was generated with clang-C using MacOSX10.11.sdk
 - `CFStreamError`
 - `CFStreamErrorDomain`
 - `CFStreamEventType`
+- `CFStreamPropertyKey`
 - `CFStreamStatus`
 - `CFStringBuiltInEncodings`
 - `CFStringCompareFlags`
@@ -3564,6 +3654,7 @@ This file was generated with clang-C using MacOSX10.11.sdk
 - `blksize_t`
 - `caddr_t`
 - `clock_t`
+- `clockid_t`
 - `ct_rune_t`
 - `daddr_t`
 - `dev_t`
@@ -3573,6 +3664,8 @@ This file was generated with clang-C using MacOSX10.11.sdk
 - `errno_t`
 - `fbootstraptransfer`
 - `fbootstraptransfer_t`
+- `fchecklv`
+- `fchecklv_t`
 - `fcodeblobs`
 - `fcodeblobs_t`
 - `fd_mask`
@@ -3586,8 +3679,12 @@ This file was generated with clang-C using MacOSX10.11.sdk
 - `fpos_t`
 - `fsblkcnt_t`
 - `fsfilcnt_t`
+- `fsid`
+- `fsid_t`
 - `fsignatures`
 - `fsignatures_t`
+- `fsobj_id`
+- `fsobj_id_t`
 - `fssearchblock`
 - `fstore`
 - `fstore_t`
@@ -3703,6 +3800,7 @@ This file was generated with clang-C using MacOSX10.11.sdk
 
 ## support.type.dispatch.c
 
+- `dispatch_autorelease_frequency_t`
 - `dispatch_block_flags_t`
 - `dispatch_block_t`
 - `dispatch_data_applier_t`
@@ -3873,6 +3971,10 @@ This file was generated with clang-C using MacOSX10.11.sdk
 - `pthread_t`
 - `sched_param`
 
+## support.type.quartz.10.12.c
+
+- `CGImageByteOrderInfo`
+
 ## support.type.quartz.c
 
 - `CGAffineTransform`
@@ -3883,6 +3985,9 @@ This file was generated with clang-C using MacOSX10.11.sdk
 - `CGCaptureOptions`
 - `CGCharCode`
 - `CGColor`
+- `CGColorConversionInfo`
+- `CGColorConversionInfoRef`
+- `CGColorConversionInfoTransformType`
 - `CGColorRef`
 - `CGColorRenderingIntent`
 - `CGColorSpace`
@@ -3960,13 +4065,14 @@ This file was generated with clang-C using MacOSX10.11.sdk
 - `CGFunctionReleaseInfoCallback`
 - `CGGammaValue`
 - `CGGesturePhase`
-- `CGGlypDeprecatedEnum`
 - `CGGlyph`
+- `CGGlyphDeprecatedEnum`
 - `CGGradient`
 - `CGGradientDrawingOptions`
 - `CGGradientRef`
 - `CGImage`
 - `CGImageAlphaInfo`
+- `CGImageByteOrderInfo`
 - `CGImageRef`
 - `CGInterpolationQuality`
 - `CGKeyCode`
@@ -3991,6 +4097,7 @@ This file was generated with clang-C using MacOSX10.11.sdk
 - `CGPDFDocument`
 - `CGPDFDocumentRef`
 - `CGPDFInteger`
+- `CGPDFObject`
 - `CGPDFObjectRef`
 - `CGPDFObjectType`
 - `CGPDFOperatorCallback`
@@ -4052,6 +4159,7 @@ This file was generated with clang-C using MacOSX10.11.sdk
 - `CGWindowLevelKey`
 - `CGWindowListOption`
 - `CGWindowSharingType`
+- `IOSurfaceRef`
 
 ## support.variable.cf.10.10.c
 
@@ -4066,6 +4174,16 @@ This file was generated with clang-C using MacOSX10.11.sdk
 
 - `kCFURLApplicationIsScriptableKey`
 - `kCFURLIsApplicationKey`
+
+## support.variable.cf.10.12.c
+
+- `kCFURLCanonicalPathKey`
+- `kCFURLVolumeIsEncryptedKey`
+- `kCFURLVolumeIsRootFileSystemKey`
+- `kCFURLVolumeSupportsCompressionKey`
+- `kCFURLVolumeSupportsExclusiveRenamingKey`
+- `kCFURLVolumeSupportsFileCloningKey`
+- `kCFURLVolumeSupportsSwapRenamingKey`
 
 ## support.variable.cf.10.8.c
 
@@ -4273,8 +4391,6 @@ This file was generated with clang-C using MacOSX10.11.sdk
 - `kCFURLContentAccessDateKey`
 - `kCFURLContentModificationDateKey`
 - `kCFURLCreationDateKey`
-- `kCFURLCustomIconKey`
-- `kCFURLEffectiveIconKey`
 - `kCFURLFileAllocatedSizeKey`
 - `kCFURLFileProtectionComplete`
 - `kCFURLFileProtectionCompleteUnlessOpen`
@@ -4309,7 +4425,6 @@ This file was generated with clang-C using MacOSX10.11.sdk
 - `kCFURLIsVolumeKey`
 - `kCFURLIsWritableKey`
 - `kCFURLKeysOfUnsetValuesKey`
-- `kCFURLLabelColorKey`
 - `kCFURLLabelNumberKey`
 - `kCFURLLinkCountKey`
 - `kCFURLLocalizedLabelKey`
@@ -4395,18 +4510,25 @@ This file was generated with clang-C using MacOSX10.11.sdk
 - `timezone`
 - `tzname`
 
-## support.variable.quartz.10.10.c
-
-- `kCGColorSpaceDisplayP3`
-
 ## support.variable.quartz.10.11.c
 
 - `kCGColorSpaceACESCGLinear`
 - `kCGColorSpaceDCIP3`
+- `kCGColorSpaceDisplayP3`
 - `kCGColorSpaceGenericXYZ`
 - `kCGColorSpaceITUR_2020`
 - `kCGColorSpaceITUR_709`
 - `kCGColorSpaceROMMRGB`
+
+## support.variable.quartz.10.12.c
+
+- `kCGColorConversionBlackPointCompensation`
+- `kCGColorSpaceExtendedGray`
+- `kCGColorSpaceExtendedLinearGray`
+- `kCGColorSpaceExtendedLinearSRGB`
+- `kCGColorSpaceExtendedSRGB`
+- `kCGColorSpaceLinearGray`
+- `kCGColorSpaceLinearSRGB`
 
 ## support.variable.quartz.10.8.c
 
