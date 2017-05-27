@@ -95,10 +95,10 @@
 			<key>match</key>
 			<string>(?x)\b
 			(  (?i:
-			      0x ( \h+    ( ' \h+    )* )?  # Hexadecimal
-			   |  0b ( [0-1]+ ( ' [0-1]+ )* )?  # Binary
-			   |  0  ( [0-7]+ ( ' [0-7]+ )* )   # Octal
-			   |     ( [0-9]+ ( ' [0-9]+ )* )   # Decimal
+			      0x ( [0-9A-Fa-f]+ ( ' [0-9A-Fa-f]+ )* )?  # Hexadecimal
+			   |  0b ( [0-1]+       ( ' [0-1]+ )* )?        # Binary
+			   |  0  ( [0-7]+       ( ' [0-7]+ )* )         # Octal
+			   |     ( [0-9]+       ( ' [0-9]+ )* )         # Decimal
 			   )
 			   ( ([uUfF] | u?ll? | U?LL?)\b | (?&lt;inc&gt;') | \b )
 			|  ( [0-9]+ ( ' [0-9]+ )* )?
