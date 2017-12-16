@@ -6,8 +6,6 @@
 	<string>This file was generated with clang-C using MacOSX10.12.sdk</string>
 	<key>fileTypes</key>
 	<array/>
-	<key>hideFromUser</key>
-	<true/>
 	<key>name</key>
 	<string>Platform</string>
 	<key>patterns</key>
