@@ -240,7 +240,7 @@
 				</dict>
 				<dict>
 					<key>include</key>
-					<string>$base</string>
+					<string>#block_innards</string>
 				</dict>
 			</array>
 		</dict>
