@@ -34,6 +34,23 @@
 			<string>#strings</string>
 		</dict>
 		<dict>
+			<key>captures</key>
+			<dict>
+				<key>1</key>
+				<dict>
+					<key>name</key>
+					<string>keyword.control.c++</string>
+				</dict>
+				<key>2</key>
+				<dict>
+					<key>name</key>
+					<string>keyword.control.c++</string>
+				</dict>
+			</dict>
+			<key>match</key>
+			<string>\b(if)\s+(constexpr)\b</string>
+		</dict>
+		<dict>
 			<key>include</key>
 			<string>source.c</string>
 		</dict>
