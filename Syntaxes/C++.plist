@@ -51,6 +51,25 @@
 			<string>\b(if)\s+(constexpr)\b</string>
 		</dict>
 		<dict>
+			<key>captures</key>
+			<dict>
+				<key>1</key>
+				<dict>
+					<key>name</key>
+					<string>punctuation.separator.scope.c++</string>
+				</dict>
+				<key>2</key>
+				<dict>
+					<key>comment</key>
+					<string>https://en.cppreference.com/w/cpp/language/dependent_name</string>
+					<key>name</key>
+					<string>storage.modifier.template.c++</string>
+				</dict>
+			</dict>
+			<key>match</key>
+			<string>(::)\s*(template)\b</string>
+		</dict>
+		<dict>
 			<key>include</key>
 			<string>source.c</string>
 		</dict>
