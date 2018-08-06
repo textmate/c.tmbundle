@@ -456,12 +456,19 @@
 				</dict>
 				<key>2</key>
 				<dict>
+					<key>comment</key>
+					<string>https://en.cppreference.com/w/cpp/language/dependent_name</string>
+					<key>name</key>
+					<string>storage.modifier.template.c++</string>
+				</dict>
+				<key>3</key>
+				<dict>
 					<key>name</key>
 					<string>variable.other.dot-access.c</string>
 				</dict>
 			</dict>
 			<key>match</key>
-			<string>(\.|\-&gt;)([a-zA-Z_][a-zA-Z_0-9]*)\b(?!\s*\()</string>
+			<string>(\.|\-&gt;)(?:\s*(template)\s+)?([a-zA-Z_][a-zA-Z_0-9]*)\b(?!\s*\()</string>
 		</dict>
 		<key>block</key>
 		<dict>
