@@ -15,6 +15,7 @@
 		<string>h</string>
 		<string>hh</string>
 		<string>hpp</string>
+		<string>hxx</string>
 		<string>h++</string>
 	</array>
 	<key>firstLineMatch</key>
