@@ -114,7 +114,7 @@
 		</dict>
 		<dict>
 			<key>match</key>
-			<string>\btemplate\b\s*</string>
+			<string>\b(template|concept)\b\s*</string>
 			<key>name</key>
 			<string>storage.type.template.c++</string>
 		</dict>
@@ -126,19 +126,19 @@
 		</dict>
 		<dict>
 			<key>match</key>
-			<string>\b(and|and_eq|bitand|bitor|compl|not|not_eq|or|or_eq|typeid|xor|xor_eq)\b</string>
+			<string>\b(co_await|co_return|co_yield|and|and_eq|bitand|bitor|compl|not|not_eq|or|or_eq|typeid|xor|xor_eq)\b</string>
 			<key>name</key>
 			<string>keyword.operator.c++</string>
 		</dict>
 		<dict>
 			<key>match</key>
-			<string>\b(class|wchar_t)\b</string>
+			<string>\b(class|wchar_t|char8_t|char16_t|char32_t)\b</string>
 			<key>name</key>
 			<string>storage.type.c++</string>
 		</dict>
 		<dict>
 			<key>match</key>
-			<string>\b(constexpr|export|mutable|typename|thread_local|noexcept)\b</string>
+			<string>\b(consteval|constinit|constexpr|export|mutable|typename|thread_local|noexcept|final|override)\b</string>
 			<key>name</key>
 			<string>storage.modifier.c++</string>
 		</dict>
