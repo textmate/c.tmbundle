@@ -132,7 +132,7 @@
 		</dict>
 		<dict>
 			<key>match</key>
-			<string>\b(struct|class|char|wchar_t|char8_t|char16_t|char32_t)\b</string>
+			<string>\b(class|wchar_t|char8_t|char16_t|char32_t)\b</string>
 			<key>name</key>
 			<string>storage.type.c++</string>
 		</dict>
