@@ -1,6 +1,6 @@
 #!/bin/bash
 
-A_OUT=$(mktemp -t "${TM_DISPLAYNAME:-untitled}")
+A_OUT=$(mktemp "${TMPDIR}/${TM_DISPLAYNAME:-untitled}_XXX")
 trap 'rm "$A_OUT"' EXIT
 
 "$@" -o "$A_OUT"
